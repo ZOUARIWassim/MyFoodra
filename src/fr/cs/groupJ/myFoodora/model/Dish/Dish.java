@@ -48,7 +48,7 @@ public class Dish {
     public boolean isGlutenFree() {
         return types.contains(FoodType.GLUTEN_FREE);
     }
-    public boolean isStandart() {
+    public boolean isStandard() {
         return types.contains(FoodType.STANDART);
     }
     public boolean isVegetarian() {

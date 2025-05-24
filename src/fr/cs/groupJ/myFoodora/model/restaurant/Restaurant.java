@@ -1,11 +1,10 @@
 package fr.cs.groupJ.myFoodora.model.restaurant;
 
-import fr.cs.groupJ.myFoodora.model.user.User;
-import fr.cs.groupJ.myFoodora.model.menu.Menu;
 import fr.cs.groupJ.myFoodora.model.meal.Meal;
+import fr.cs.groupJ.myFoodora.model.menu.Menu;
 import fr.cs.groupJ.myFoodora.util.Coordinate;
-import java.util.Observable;
 import java.util.List;
+import java.util.Observable;
 
 public class Restaurant extends Observable {
     private Coordinate location;
@@ -16,7 +15,7 @@ public class Restaurant extends Observable {
     private int id;
     private String username;
     private String password;
-
+    
     public Restaurant(int id, String username, String password, Coordinate location, Menu menu, List<Meal> meals) {
         this.id = id;
         this.username = username;

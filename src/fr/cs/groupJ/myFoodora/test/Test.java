@@ -1,16 +1,17 @@
 package fr.cs.groupJ.myFoodora.test;
 
 import fr.cs.groupJ.myFoodora.model.Dish.Dish;
-import fr.cs.groupJ.myFoodora.util.DishCategory;
+import fr.cs.groupJ.myFoodora.model.fidelityCard.LotteryFidelityCard;
 import fr.cs.groupJ.myFoodora.model.meal.FullMeal;
 import fr.cs.groupJ.myFoodora.model.meal.HalfMeal;
 import fr.cs.groupJ.myFoodora.model.meal.Meal;
 import fr.cs.groupJ.myFoodora.model.menu.Menu;
-import fr.cs.groupJ.myFoodora.util.Coordinate;
 import fr.cs.groupJ.myFoodora.model.restaurant.Restaurant;
+import fr.cs.groupJ.myFoodora.model.user.Customer;
+import fr.cs.groupJ.myFoodora.util.Coordinate;
+import fr.cs.groupJ.myFoodora.util.DishCategory;
 import fr.cs.groupJ.myFoodora.util.FoodType;
 import java.util.List;
-
 
 public class Test {
     public static void main(String[] args) {
@@ -85,6 +86,10 @@ public class Test {
         System.out.println("Full Meal Price: $" + fullMeal.getPrice());
         System.out.println("Half Meal Price: $" + halfMeal.getPrice());
         System.out.println("Meal of the Week Price: $" + mealOfTheWeek.getPrice());
+
+
+        Customer charlie = new Customer(1,"hi","pwd","Charlie", new LotteryFidelityCard());
+        System.out.println("Charlie pays: " + charlie.placeOrder(50));
 
     }
 }

@@ -1,9 +1,7 @@
 package fr.cs.groupJ.myFoodora.model.meal;
 import fr.cs.groupJ.myFoodora.model.Dish.Dish;
-import java.util.List;
 import fr.cs.groupJ.myFoodora.util.FoodType;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.List;
 
 public class HalfMeal extends Meal {
     private Dish main;

@@ -1,8 +1,7 @@
 package fr.cs.groupJ.myFoodora.model.restaurant;
 
-import fr.cs.groupJ.myFoodora.model.user.User;
-import fr.cs.groupJ.myFoodora.model.menu.Menu;
 import fr.cs.groupJ.myFoodora.model.meal.Meal;
+import fr.cs.groupJ.myFoodora.model.menu.Menu;
 import fr.cs.groupJ.myFoodora.util.Coordinate;
 import fr.cs.groupJ.myFoodora.util.CustomObservable;
 import fr.cs.groupJ.myFoodora.util.CustomObserver;

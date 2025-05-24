@@ -1,8 +1,11 @@
 package fr.cs.groupJ.myFoodora.model.meal;
+
 import fr.cs.groupJ.myFoodora.model.Dish.Dish;
 import fr.cs.groupJ.myFoodora.util.FoodType;
 import fr.cs.groupJ.myFoodora.util.CustomObservable;
 import fr.cs.groupJ.myFoodora.util.CustomObserver;
+
+import java.util.List;
 
 public abstract class Meal implements CustomObserver {
     protected List<FoodType> foodTypes;
@@ -11,9 +14,6 @@ public abstract class Meal implements CustomObserver {
     protected boolean isMealOfTheWeek = false;
     
     public Meal(List<FoodType> foodTypes) {
-        this.id = globalId;
-        this.globalId= globalId + 1;
-        this.name = "Meal " + id;
         this.foodTypes = foodTypes;
     }
 

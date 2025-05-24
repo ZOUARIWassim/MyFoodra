@@ -1,4 +1,5 @@
 fr/cs/groupJ/myFoodora/model/user/User.java
+fr/cs/groupJ/myFoodora/model/user/Customer.java
 fr/cs/groupJ/myFoodora/model/restaurant/Restaurant.java
 fr/cs/groupJ/myFoodora/model/menu/Menu.java
 fr/cs/groupJ/myFoodora/model/Dish/Dish.java

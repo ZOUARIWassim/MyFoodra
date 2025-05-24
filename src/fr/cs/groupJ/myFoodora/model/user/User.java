@@ -1,11 +1,11 @@
 package fr.cs.groupJ.myFoodora.model.user;
 
 public abstract class User {
-    protected String id;
+    protected int id;
     protected String username;
     protected String password;
 
-    public User(String id, String username, String password) {
+    public User(int id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -13,11 +13,11 @@ public abstract class User {
 
     // ===== Getters and Setters =====
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -2,6 +2,8 @@ package fr.cs.groupJ.myFoodora.test;
 
 import fr.cs.groupJ.myFoodora.model.Dish.Dish;
 import fr.cs.groupJ.myFoodora.model.fidelityCard.LotteryFidelityCard;
+import fr.cs.groupJ.myFoodora.model.fidelityCard.BasicFidelityCard;
+import fr.cs.groupJ.myFoodora.model.fidelityCard.PointFidelityCard;
 import fr.cs.groupJ.myFoodora.model.meal.FullMeal;
 import fr.cs.groupJ.myFoodora.model.meal.HalfMeal;
 import fr.cs.groupJ.myFoodora.model.meal.Meal;
@@ -88,8 +90,13 @@ public class Test {
         System.out.println("Meal of the Week Price: $" + mealOfTheWeek.getPrice());
 
 
-        Customer charlie = new Customer(1,"hi","pwd","Charlie", new LotteryFidelityCard());
-        System.out.println("Charlie pays: " + charlie.placeOrder(50));
+        Customer charlie = new Customer(1,"hi","pwd","Charlie", new PointFidelityCard());
+        System.out.println("Charlie's Points: " + charlie.getPoints());
+        charlie.placeOrder(fullMeal);
+        System.out.println("Charlie's Points: " + charlie.getPoints());
+        System.out.println("Charlie's Order Total: $" + charlie.getCurrentOrder().calculateFinalPrice());
+        System.out.println("Charlie's Points: " + charlie.getPoints());
+
 
     }
 }

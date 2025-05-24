@@ -1,12 +1,14 @@
 package fr.cs.groupJ.myFoodora.model.meal;
 
 import fr.cs.groupJ.myFoodora.model.Dish.Dish;
+import fr.cs.groupJ.myFoodora.util.FoodType;
 import fr.cs.groupJ.myFoodora.util.CustomObservable;
 import fr.cs.groupJ.myFoodora.util.CustomObserver;
-import fr.cs.groupJ.myFoodora.util.FoodType;
+import fr.cs.groupJ.myFoodora.model.item.Item;
+
 import java.util.List;
 
-public abstract class Meal implements CustomObserver {
+public abstract class Meal implements CustomObserver, Item {
     protected List<FoodType> foodTypes;
     protected double DISCOUNT_FACTOR = 0.05;
     protected double SPECIAL_DISCOUNT_FACTOR = 0.10;

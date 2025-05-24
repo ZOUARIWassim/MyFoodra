@@ -3,7 +3,7 @@ import fr.cs.groupJ.myFoodora.model.user.Customer;
 import java.util.Random;
 
 public class LotteryFidelityCard implements FidelityCard {
-    private static final double WIN_PROBABILITY = 0.05; // 5% chance
+    private static final double WIN_PROBABILITY = 0.5; // 5% chance
 
     @Override
     public double computeFinalPrice(double basePrice, Customer customer) {

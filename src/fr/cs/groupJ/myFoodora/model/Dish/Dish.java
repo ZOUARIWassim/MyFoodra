@@ -2,8 +2,9 @@ package fr.cs.groupJ.myFoodora.model.Dish;
 import fr.cs.groupJ.myFoodora.util.DishCategory;
 import fr.cs.groupJ.myFoodora.util.FoodType;
 import java.util.List;
+import fr.cs.groupJ.myFoodora.model.item.Item;
 
-public class Dish {
+public class Dish implements Item{
     private String name;
     private DishCategory category;
     private double price;
@@ -36,6 +37,7 @@ public class Dish {
     public void setTypes(List<FoodType> types) {
         this.types = types;
     }
+    @Override
     public double getPrice() {
         return price;
     }

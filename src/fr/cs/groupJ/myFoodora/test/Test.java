@@ -5,7 +5,6 @@ import fr.cs.groupJ.myFoodora.model.fidelityCard.LotteryFidelityCard;
 import fr.cs.groupJ.myFoodora.model.meal.FullMeal;
 import fr.cs.groupJ.myFoodora.model.meal.HalfMeal;
 import fr.cs.groupJ.myFoodora.model.meal.Meal;
-import fr.cs.groupJ.myFoodora.model.meal.MealOfTheWeek;
 import fr.cs.groupJ.myFoodora.model.menu.Menu;
 import fr.cs.groupJ.myFoodora.model.restaurant.Restaurant;
 import fr.cs.groupJ.myFoodora.model.user.Customer;
@@ -24,12 +23,13 @@ public class Test {
 
         FullMeal fullMeal = new FullMeal(dish1, dish2, dish3, List.of(FoodType.STANDART));
         HalfMeal halfMeal = new HalfMeal(dish1, dish2, List.of(FoodType.STANDART));
-        MealOfTheWeek mealOfTheWeek = new MealOfTheWeek(fullMeal, List.of(FoodType.STANDART));
 
         Menu menu = new Menu(List.of(dish1, dish2, dish3));
 
-        List<Meal> meals = List.of(fullMeal, halfMeal, mealOfTheWeek);
+        List<Meal> meals = List.of(fullMeal, halfMeal);
         Restaurant restaurant = new Restaurant(1,"Le Gourmet", "pwd", coordinate, menu, meals);
+        restaurant.addMealOfTheWeek(fullMeal);
+        Meal mealOfTheWeek = restaurant.getMealOfTheWeek();
 
         System.out.println("Restaurant Name: " + restaurant.getUsername());
         System.out.println("Location: " + restaurant.getLocation());
@@ -58,9 +58,9 @@ public class Test {
         System.out.println("Is Full Meal Gluten Free? " + fullMeal.isGlutenFree());
         System.out.println("Is Half Meal Gluten Free? " + halfMeal.isGlutenFree());
         System.out.println("Is Meal of the Week Gluten Free? " + mealOfTheWeek.isGlutenFree());
-        System.out.println("Is Full Meal Standard? " + fullMeal.isStandart());
-        System.out.println("Is Half Meal Standard? " + halfMeal.isStandart());
-        System.out.println("Is Meal of the Week Standard? " + mealOfTheWeek.isStandart());
+        System.out.println("Is Full Meal Standard? " + fullMeal.isStandard());
+        System.out.println("Is Half Meal Standard? " + halfMeal.isStandard());
+        System.out.println("Is Meal of the Week Standard? " + mealOfTheWeek.isStandard());
         System.out.println("Is Full Meal Vegetarian? " + fullMeal.isVegetarian());
         System.out.println("Is Half Meal Vegetarian? " + halfMeal.isVegetarian());
         System.out.println("Is Meal of the Week Vegetarian? " + mealOfTheWeek.isVegetarian());
@@ -81,7 +81,7 @@ public class Test {
 
         System.out.println("Discount Factor for Full Meal: " + fullMeal.getDiscountFactor());
         System.out.println("Discount Factor for Half Meal: " + halfMeal.getDiscountFactor());
-        System.out.println("Discount Factor for Meal of the Week: " + mealOfTheWeek.getSpecialDiscountFactor());
+        System.out.println("Discount Factor for Meal of the Week: " + mealOfTheWeek.getDiscountFactor());
 
         System.out.println("Full Meal Price: $" + fullMeal.getPrice());
         System.out.println("Half Meal Price: $" + halfMeal.getPrice());

@@ -6,7 +6,6 @@ fr/cs/groupJ/myFoodora/model/Dish/Dish.java
 fr/cs/groupJ/myFoodora/model/meal/Meal.java
 fr/cs/groupJ/myFoodora/model/meal/FullMeal.java
 fr/cs/groupJ/myFoodora/model/meal/HalfMeal.java
-fr/cs/groupJ/myFoodora/model/meal/MealOfTheWeek.java
 fr/cs/groupJ/myFoodora/util/Coordinate.java
 fr/cs/groupJ/myFoodora/util/DishCategory.java
 fr/cs/groupJ/myFoodora/util/FoodType.java

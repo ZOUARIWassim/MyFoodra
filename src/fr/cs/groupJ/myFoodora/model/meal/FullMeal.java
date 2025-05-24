@@ -46,7 +46,12 @@ public class FullMeal extends Meal {
     @Override
     public double getPrice() {
         double totalPrice = starter.getPrice() + main.getPrice() + dessert.getPrice();
-        return totalPrice * (1 - DISCOUNT_FACTOR);
+        if (this.isMealOfTheWeek()) {
+            return totalPrice * (1 - SPECIAL_DISCOUNT_FACTOR);
+        }
+        else {
+            return totalPrice * (1 - DISCOUNT_FACTOR);
+        }
     }
 
     @Override

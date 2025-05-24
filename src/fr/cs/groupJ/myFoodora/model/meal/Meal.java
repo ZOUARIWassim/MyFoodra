@@ -1,19 +1,18 @@
 package fr.cs.groupJ.myFoodora.model.meal;
+
 import fr.cs.groupJ.myFoodora.model.Dish.Dish;
+import fr.cs.groupJ.myFoodora.util.CustomObservable;
+import fr.cs.groupJ.myFoodora.util.CustomObserver;
 import fr.cs.groupJ.myFoodora.util.FoodType;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
-public abstract class Meal implements Observer {
-    protected int id;
-    protected String name;
+public abstract class Meal implements CustomObserver {
     protected List<FoodType> foodTypes;
-    protected static double DISCOUNT_FACTOR = 0.05;
-    protected static double SPECIAL_DISCOUNT_FACTOR = 0.10;
+    protected double DISCOUNT_FACTOR = 0.05;
+    protected double SPECIAL_DISCOUNT_FACTOR = 0.10;
+    protected boolean isMealOfTheWeek = false;
     
     public Meal(List<FoodType> foodTypes) {
-        this.name = "Meal " + id;
         this.foodTypes = foodTypes;
     }
 
@@ -25,10 +24,10 @@ public abstract class Meal implements Observer {
         this.foodTypes = foodTypes;
     }
     public double getDiscountFactor() {
+        if (isMealOfTheWeek) {
+            return SPECIAL_DISCOUNT_FACTOR;
+        }
         return DISCOUNT_FACTOR;
-    }
-    public double getSpecialDiscountFactor() {
-        return SPECIAL_DISCOUNT_FACTOR;
     }
 
     // ===== Methods =====
@@ -39,15 +38,31 @@ public abstract class Meal implements Observer {
     public boolean isGlutenFree() {
         return foodTypes.contains(FoodType.GLUTEN_FREE);
     }
-    public boolean isStandart() {
+    public boolean isStandard() {
         return foodTypes.contains(FoodType.STANDART);
     }
     public boolean isVegetarian() {
         return foodTypes.contains(FoodType.VEGETARIAN);
     }
 
+    public void setMeatOfTheWeek() {
+        if (isMealOfTheWeek) {
+            throw new IllegalStateException("This meal is already set as Meal of the Week.");
+        }
+        this.isMealOfTheWeek = true;
+    }
+    public boolean isMealOfTheWeek() {
+        return isMealOfTheWeek;
+    }
+    public void deleteMealOfTheWeek() {
+        if (!isMealOfTheWeek) {
+            throw new IllegalStateException("This meal is not set as Meal of the Week.");
+        }
+        this.isMealOfTheWeek = false;
+    }
+
     @Override
-    public void update(Observable o, Object arg){
+    public void update(CustomObservable o, Object arg){
         Object[] args = (Object[]) arg;
         this.DISCOUNT_FACTOR = (double) args[0];
         this.SPECIAL_DISCOUNT_FACTOR = (double) args[1];

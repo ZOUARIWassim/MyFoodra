@@ -1,18 +1,26 @@
 package fr.cs.groupJ.myFoodora.model.user;
-
+import fr.cs.groupJ.myFoodora.util.Role;
+import fr.cs.groupJ.myFoodora.util.ContactInfo;
+import java.util.ArrayList;
+import java.util.List;
+import fr.cs.groupJ.myFoodora.util.Coordinate;
 public abstract class User {
-    protected int id;
+    //protected int id;
     protected String username;
     protected String password;
-
-    public User(int id, String username, String password) {
-        this.id = id;
+    protected Coordinate adress;
+    protected List<ContactInfo> contactInfos = new ArrayList<>();
+    
+    public User( String username, String password,Coordinate adress) {
+        this.adress = adress;
         this.username = username;
         this.password = password;
     }
-
+    public boolean checkPassword(String inputPassword) {
+        return password.equals(inputPassword);
+    }
     // ===== Getters and Setters =====
-
+/**
     public int getId() {
         return id;
     }
@@ -20,7 +28,7 @@ public abstract class User {
     public void setId(int id) {
         this.id = id;
     }
-
+*/
     public String getUsername() {
         return username;
     }
@@ -38,6 +46,12 @@ public abstract class User {
     }
 
     // ===== Abstract Methods =====
+    
+    public void addContactInfo(ContactInfo info) {
+        contactInfos.add(info);
+    }
+
+    public abstract Role getRole();
 
 
     // Optional login/logout methods

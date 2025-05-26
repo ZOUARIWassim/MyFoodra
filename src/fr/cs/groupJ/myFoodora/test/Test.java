@@ -29,12 +29,12 @@ public class Test {
         Menu menu = new Menu(List.of(dish1, dish2, dish3));
 
         List<Meal> meals = List.of(fullMeal, halfMeal);
-        Restaurant restaurant = new Restaurant(1,"Le Gourmet", "pwd", coordinate, menu, meals);
+        Restaurant restaurant = new Restaurant("Le Gourmet", "pwd", coordinate, menu, meals);
         restaurant.addMealOfTheWeek(fullMeal);
         Meal mealOfTheWeek = restaurant.getMealOfTheWeek();
 
         System.out.println("Restaurant Name: " + restaurant.getUsername());
-        System.out.println("Location: " + restaurant.getLocation());
+        System.out.println("Restaurant Location: " + restaurant.getAdress());
         System.out.println("Menu Dishes:");
         for (Dish dish : restaurant.getMenu().getDishes()) {
             System.out.println("- " + dish.getName() + " (" + dish.getCategory() + "): $" + dish.getPrice());
@@ -89,9 +89,9 @@ public class Test {
         System.out.println("Half Meal Price: $" + halfMeal.getPrice());
         System.out.println("Meal of the Week Price: $" + mealOfTheWeek.getPrice());
 
-
-        Customer charlie = new Customer(1,"hi","pwd","Charlie", new PointFidelityCard());
-        System.out.println("Charlie's Points: " + charlie.getPoints());
+        Coordinate location = new Coordinate(48.8566, 2.3522);
+        Customer charlie = new Customer("hi","pwd","Charlie",location);
+        charlie.setFidelityCard(new LotteryFidelityCard());
         charlie.placeOrder(fullMeal);
         System.out.println("Charlie's Points: " + charlie.getPoints());
         System.out.println("Charlie's Order Total: $" + charlie.getCurrentOrder().calculateFinalPrice());

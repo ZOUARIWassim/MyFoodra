@@ -1,20 +1,21 @@
 package fr.cs.groupJ.myFoodora.model.user;
 import fr.cs.groupJ.myFoodora.model.user.User;
 import fr.cs.groupJ.myFoodora.model.fidelityCard.FidelityCard;
+import fr.cs.groupJ.myFoodora.util.Coordinate;
 import fr.cs.groupJ.myFoodora.model.order.Order;
+import fr.cs.groupJ.myFoodora.util.Role;
 import fr.cs.groupJ.myFoodora.model.item.Item;
 import fr.cs.groupJ.myFoodora.util.Date;
 
 public class Customer extends User {
     private String name;
-    private FidelityCard fidelityCard;
+    private FidelityCard fidelityCard = null;
     private int points = 0;
     private Order currentOrder = null;
 
-    public Customer(int id, String username, String password, String name, FidelityCard fidelityCard) {
-        super(id, username, password);
+    public Customer(String username, String password, String name, Coordinate address) {
+        super(username, password, address);
         this.name = name;
-        this.fidelityCard = fidelityCard;
     }
 
     public void placeOrder(Item item) {
@@ -45,5 +46,10 @@ public class Customer extends User {
 
     public Order getCurrentOrder() {
         return currentOrder;
+    }
+
+    @Override
+    public Role getRole() {
+        return Role.CUSTOMER;
     }
 }

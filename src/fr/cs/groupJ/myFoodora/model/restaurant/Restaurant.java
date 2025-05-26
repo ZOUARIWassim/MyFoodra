@@ -5,12 +5,12 @@ import fr.cs.groupJ.myFoodora.model.menu.Menu;
 import fr.cs.groupJ.myFoodora.model.user.User;
 import fr.cs.groupJ.myFoodora.util.Coordinate;
 import fr.cs.groupJ.myFoodora.util.CustomObservable;
+import fr.cs.groupJ.myFoodora.util.Role;
 import fr.cs.groupJ.myFoodora.util.CustomObserver;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Restaurant extends User implements CustomObservable {
-    private Coordinate location;
     private Menu menu;
     private List<Meal> meals;
     private double discountFactor = 0.05; 
@@ -18,9 +18,8 @@ public class Restaurant extends User implements CustomObservable {
     private ArrayList<CustomObserver> observers = new ArrayList<>();
     private boolean changed = false;
 
-    public Restaurant(int id, String username, String password, Coordinate location, Menu menu, List<Meal> meals) {
-        super(id, username, password);
-        this.location = location;
+    public Restaurant( String username, String password, Coordinate location, Menu menu, List<Meal> meals) {
+        super(username, password, location);
         this.menu = menu;
         this.meals = meals;
         for (Meal meal : meals) {
@@ -30,15 +29,10 @@ public class Restaurant extends User implements CustomObservable {
 
     // ===== Getters and Setters =====
 
-    public Coordinate getLocation() {
-        return location;
-    }
     public String getUsername() {
         return username;
     }
-    public void setLocation(Coordinate location) {
-        this.location = location;
-    }
+
     public Menu getMenu() {
         return menu;
     }
@@ -122,6 +116,11 @@ public class Restaurant extends User implements CustomObservable {
             observer.update(this, arg);
         }
         changed = false; 
+    }
+
+    @Override
+    public Role getRole() {
+        return Role.RESTAURANT;
     }
 
 }

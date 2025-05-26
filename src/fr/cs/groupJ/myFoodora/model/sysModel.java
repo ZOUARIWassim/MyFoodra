@@ -33,7 +33,7 @@ public class sysModel {
             throw new IllegalArgumentException("Username already exists.");
         }
 		Coordinate address = new Coordinate(longitude,latitude);
-        Customer customer = new Customer(username, password, address, firstName, lastName);
+        Customer customer = new Customer(username, password, firstName, address);
         userMap.put(customer.getUsername(), customer);
 		this.Customers.add(customer);
 	}

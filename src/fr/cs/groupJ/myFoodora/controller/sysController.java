@@ -124,8 +124,8 @@ public class sysController {
             return;
         }
         String password = args[5];
-        String username, String password, String firstName, String lastName, Coordinate position
-        Courier courier = new Courier(username, password, firstName, lastName);
+        Coordinate position = new Coordinate(longitude, latitude);
+        Courier courier = new Courier(username, password, firstName, lastName, position);
         try {
             model.addCourier(courier);
             view.showMessage("Courier registered: " + username);

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import fr.cs.groupJ.myFoodora.util.Coordinate;
 public abstract class User {
-    //protected int id;
     protected String username;
     protected String password;
     protected Coordinate adress;
@@ -20,15 +19,7 @@ public abstract class User {
         return password.equals(inputPassword);
     }
     // ===== Getters and Setters =====
-/**
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-*/
     public String getUsername() {
         return username;
     }
@@ -45,6 +36,14 @@ public abstract class User {
         this.password = password;
     }
 
+    public Coordinate getAdress() {
+        return adress;
+    }
+    
+    public void setAdress(Coordinate adress) {
+        this.adress = adress;
+    }
+
     // ===== Abstract Methods =====
     
     public void addContactInfo(ContactInfo info) {
@@ -53,15 +52,4 @@ public abstract class User {
 
     public abstract Role getRole();
 
-
-    // Optional login/logout methods
-    public void login() {
-        // Implement login logic or leave for Controller
-        System.out.println(username + " logged in.");
-    }
-
-    public void logout() {
-        // Implement logout logic
-        System.out.println(username + " logged out.");
-    }
 }

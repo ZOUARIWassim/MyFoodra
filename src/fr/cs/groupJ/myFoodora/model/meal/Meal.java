@@ -1,15 +1,17 @@
 package fr.cs.groupJ.myFoodora.model.meal;
 
-import fr.cs.groupJ.myFoodora.model.Dish.Dish;
-import fr.cs.groupJ.myFoodora.util.FoodType;
 import fr.cs.groupJ.myFoodora.util.CustomObservable;
 import fr.cs.groupJ.myFoodora.util.CustomObserver;
+import fr.cs.groupJ.myFoodora.model.Dish.Dish;
 import fr.cs.groupJ.myFoodora.model.item.Item;
+import fr.cs.groupJ.myFoodora.util.FoodType;
 
 import java.util.List;
 
 public abstract class Meal implements CustomObserver, Item {
+
     protected List<FoodType> foodTypes;
+
     protected double DISCOUNT_FACTOR = 0.05;
     protected double SPECIAL_DISCOUNT_FACTOR = 0.10;
     protected boolean isMealOfTheWeek = false;
@@ -31,11 +33,15 @@ public abstract class Meal implements CustomObserver, Item {
         }
         return DISCOUNT_FACTOR;
     }
+    
 
-    // ===== Methods =====
+    // ===== Abstracts Methods =====
+
     public abstract double getPrice();
     public abstract List<Dish> getDishes();
     public abstract String getTitle();
+
+    // ===== Methods =====
 
     public boolean isGlutenFree() {
         return foodTypes.contains(FoodType.GLUTEN_FREE);
@@ -46,7 +52,6 @@ public abstract class Meal implements CustomObserver, Item {
     public boolean isVegetarian() {
         return foodTypes.contains(FoodType.VEGETARIAN);
     }
-
     public void setMeatOfTheWeek() {
         if (isMealOfTheWeek) {
             throw new IllegalStateException("This meal is already set as Meal of the Week.");
@@ -62,7 +67,9 @@ public abstract class Meal implements CustomObserver, Item {
         }
         this.isMealOfTheWeek = false;
     }
-
+    
+    // ===== CustomObserver Implementation =====
+    
     @Override
     public void update(CustomObservable o, Object arg){
         Object[] args = (Object[]) arg;

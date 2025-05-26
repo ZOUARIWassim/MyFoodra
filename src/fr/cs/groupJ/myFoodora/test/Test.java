@@ -4,6 +4,8 @@ import fr.cs.groupJ.myFoodora.model.Dish.Dish;
 import fr.cs.groupJ.myFoodora.model.fidelityCard.LotteryFidelityCard;
 import fr.cs.groupJ.myFoodora.model.fidelityCard.BasicFidelityCard;
 import fr.cs.groupJ.myFoodora.model.fidelityCard.PointFidelityCard;
+import fr.cs.groupJ.myFoodora.util.ContactInfo;
+import fr.cs.groupJ.myFoodora.util.Type;
 import fr.cs.groupJ.myFoodora.model.meal.FullMeal;
 import fr.cs.groupJ.myFoodora.model.meal.HalfMeal;
 import fr.cs.groupJ.myFoodora.model.meal.Meal;
@@ -13,6 +15,7 @@ import fr.cs.groupJ.myFoodora.model.user.Customer;
 import fr.cs.groupJ.myFoodora.util.Coordinate;
 import fr.cs.groupJ.myFoodora.util.DishCategory;
 import fr.cs.groupJ.myFoodora.util.FoodType;
+import fr.cs.groupJ.myFoodora.util.Offer;
 import java.util.List;
 
 public class Test {
@@ -29,8 +32,8 @@ public class Test {
         Menu menu = new Menu(List.of(dish1, dish2, dish3));
 
         List<Meal> meals = List.of(fullMeal, halfMeal);
-        Restaurant restaurant = new Restaurant("Le Gourmet", "pwd", coordinate, menu, meals);
-        restaurant.addMealOfTheWeek(fullMeal);
+        Restaurant restaurant = new Restaurant("Le Gourmet", "gourmet123", "password", coordinate, menu, meals);
+        restaurant.setMealOfTheWeek(fullMeal);
         Meal mealOfTheWeek = restaurant.getMealOfTheWeek();
 
         System.out.println("Restaurant Name: " + restaurant.getUsername());
@@ -90,8 +93,16 @@ public class Test {
         System.out.println("Meal of the Week Price: $" + mealOfTheWeek.getPrice());
 
         Coordinate location = new Coordinate(48.8566, 2.3522);
-        Customer charlie = new Customer("hi","pwd","Charlie",location);
-        charlie.setFidelityCard(new LotteryFidelityCard());
+        List<ContactInfo> contactInfo = List.of(new ContactInfo(Type.PHONE, "123-456-7890"));
+        Customer charlie = new Customer("Charlie", "charlie123", "Charlie", "Brown", location, contactInfo);
+        Offer offer = new Offer(restaurant, "10% off on all meals every Monday!");
+        restaurant.setOffers(List.of(offer));
+        System.out.println("Restaurant Offers: " + restaurant.getOffers());
+        charlie.subscribeRestaurant(restaurant);
+        System.out.println("Charlie's Offers: " + charlie.getNotifs());
+        charlie.unsubscribeRestaurant(restaurant);
+        System.out.println("Charlie's Offers after unsubscribe: " + charlie.getNotifs());
+        charlie.setFidelityCard(new LotteryFidelityCard(restaurant,charlie));
         charlie.placeOrder(fullMeal);
         System.out.println("Charlie's Points: " + charlie.getPoints());
         System.out.println("Charlie's Order Total: $" + charlie.getCurrentOrder().calculateFinalPrice());

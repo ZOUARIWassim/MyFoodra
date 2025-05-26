@@ -1,22 +1,25 @@
 package fr.cs.groupJ.myFoodora.model.order;
 
-import fr.cs.groupJ.myFoodora.util.Date;
-import fr.cs.groupJ.myFoodora.model.item.Item;
-import fr.cs.groupJ.myFoodora.model.user.Customer;
 import fr.cs.groupJ.myFoodora.model.fidelityCard.FidelityCard;
+import fr.cs.groupJ.myFoodora.model.user.Customer;
+import fr.cs.groupJ.myFoodora.model.item.Item;
+import fr.cs.groupJ.myFoodora.util.Date;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+
     private Date orderDate;
     private Customer customer;
+
     private List<Item> items = new ArrayList<>();
 
-    public Order( Customer customer, Date orderDate) {
+    public Order( Customer customer, Date orderDate, List<Item> items) {
         this.orderDate = orderDate;
         this.customer = customer;
+        this.items = items;
     }
-
     // ===== Getters and Setters =====
 
     public Date getOrderDate() {
@@ -47,7 +50,6 @@ public class Order {
             throw new IllegalStateException("Items list is not initialized.");
         }
     }
-
     public void removeItem(Item item) {
         if (items != null && items.contains(item)) {
             items.remove(item);
@@ -55,7 +57,7 @@ public class Order {
             throw new IllegalStateException("Item not found in the order.");
         }
     }
-    
+
     public double calculateBasePrice() {
         double total = 0.0;
         for (Item item : items) {
@@ -63,12 +65,11 @@ public class Order {
         }
         return total;
     }
-
     public double calculateFinalPrice() {
         FidelityCard fidelityCard = customer.getFidelityCard();
         double basePrice = calculateBasePrice();
         if (fidelityCard != null) {
-            return fidelityCard.computeFinalPrice(basePrice, customer);
+            return fidelityCard.computeFinalPrice(basePrice);
         } else {
             throw new IllegalStateException("Customer does not have a fidelity card.");
         }

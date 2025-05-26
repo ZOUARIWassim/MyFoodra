@@ -1,9 +1,11 @@
 package fr.cs.groupJ.myFoodora.model.menu;
+
 import fr.cs.groupJ.myFoodora.model.Dish.Dish;
+
 import java.util.List;
 
-
 public class Menu {
+
     private List<Dish> dishes;
 
     public Menu(List<Dish> dishes) {
@@ -11,7 +13,7 @@ public class Menu {
     }
 
     // ===== Getters and Setters =====
-
+    
     public List<Dish> getDishes() {
         return dishes;
     }

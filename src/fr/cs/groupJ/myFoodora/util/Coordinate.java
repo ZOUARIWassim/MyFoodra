@@ -1,5 +1,7 @@
 package fr.cs.groupJ.myFoodora.util;
+
 public class Coordinate {
+
     private double latitude;
     private double longitude;
 
@@ -7,6 +9,7 @@ public class Coordinate {
         this.latitude = latitude;
         this.longitude = longitude;
     }
+    
     // ===== Getters and Setters =====
 
     public double getLatitude() {

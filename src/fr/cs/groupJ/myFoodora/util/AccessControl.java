@@ -9,11 +9,8 @@ public class AccessControl {
 		User currentUser = model.getCurrentUser();
 		if (currentUser==null || !currentUser.getRole().equals(role)) {
 			return false;
-		}else
-		{
+		}else{
 			return true;
 		}
-	
 	}
-
 }

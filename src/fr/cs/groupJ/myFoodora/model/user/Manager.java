@@ -1,10 +1,10 @@
-
 package fr.cs.groupJ.myFoodora.model.user;
 
 import fr.cs.groupJ.myFoodora.util.Coordinate;
 import fr.cs.groupJ.myFoodora.util.Role;
 
 public class Manager extends User {
+    
     private String firstName;
     private String lastName;
 
@@ -15,12 +15,20 @@ public class Manager extends User {
         this.lastName = lastName;
     }
 
-    public String getFirstName() { return firstName; }
-    public void setFirstName(String firstName) { this.firstName = firstName; }
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) { this.lastName = lastName; }
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    // ===== Getters and Setters =====
+
+    public String getFirstName() {
+        return firstName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
     
     
     
@@ -114,13 +122,19 @@ public class Manager extends User {
     //     DeliveryAssignmentService.getInstance().setPolicy(policy);
     // }
 
-    @Override
-    public String toString() {
-        return String.format("Manager[id=%s, name=%s %s]", firstName, lastName);
-    }
+
+    // ===== Overridden Methods from User =====
 
 	@Override
 	public Role getRole() {
 		return Role.MANAGER;
 	}
+
+    @Override
+    public String toString() {
+        return String.format(
+            "Manager [id=%d, username=%s, firstName=%s, lastName=%s]",
+            getId(), getUsername(), firstName, lastName
+        );
+    }
 }

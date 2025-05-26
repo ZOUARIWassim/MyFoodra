@@ -1,10 +1,13 @@
 package fr.cs.groupJ.myFoodora.model.Dish;
-import fr.cs.groupJ.myFoodora.util.DishCategory;
-import fr.cs.groupJ.myFoodora.util.FoodType;
-import java.util.List;
-import fr.cs.groupJ.myFoodora.model.item.Item;
 
-public class Dish implements Item{
+import fr.cs.groupJ.myFoodora.util.DishCategory;
+import fr.cs.groupJ.myFoodora.model.item.Item;
+import fr.cs.groupJ.myFoodora.util.FoodType;
+
+import java.util.List;
+
+public class Dish implements Item {
+    
     private String name;
     private DishCategory category;
     private double price;

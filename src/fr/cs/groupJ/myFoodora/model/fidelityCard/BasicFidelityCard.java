@@ -1,11 +1,18 @@
 package fr.cs.groupJ.myFoodora.model.fidelityCard;
-import fr.cs.groupJ.myFoodora.model.user.Customer;
-import fr.cs.groupJ.myFoodora.model.fidelityCard.FidelityCard;
 
-public class BasicFidelityCard implements FidelityCard {
+import fr.cs.groupJ.myFoodora.model.fidelityCard.FidelityCard;
+import fr.cs.groupJ.myFoodora.model.restaurant.Restaurant;
+import fr.cs.groupJ.myFoodora.model.user.Customer;
+
+public class BasicFidelityCard extends FidelityCard {
+
+    public BasicFidelityCard(Restaurant restaurant, Customer customer) {
+        super(restaurant, customer);
+        customer.subscribeRestaurant(restaurant);
+    }
+
     @Override
-    public double computeFinalPrice(double basePrice, Customer customer) {
-        // Access to special offers logic
-        return basePrice; // For now, no discount applied
+    public double computeFinalPrice(double basePrice) {
+        return basePrice; 
     }
 }

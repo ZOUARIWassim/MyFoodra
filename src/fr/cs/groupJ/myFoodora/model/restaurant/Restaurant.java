@@ -28,14 +28,12 @@ public class Restaurant extends User implements CustomObservable {
     private boolean changed = false;
 
 
-    public Restaurant( String name, String username, String password, Coordinate adress, Menu menu, List<Meal> meals) {
+    public Restaurant( String name, String username, String password, Coordinate adress) {
         super(username, password, adress);
         this.name = name;
         this.menu = menu;
         this.meals = meals;
-        for (Meal meal : meals) {
-            this.addObserver(meal);
-        }
+   
     }
 
     // ===== Getters and Setters =====
@@ -64,8 +62,26 @@ public class Restaurant extends User implements CustomObservable {
     public List<Meal> getMeals() {
         return meals;
     }
-    protected void setMeals(List<Meal> meals) {
+    public void setMeals(List<Meal> meals) {
         this.meals = meals;
+        for (Meal meal : meals) {
+            this.addObserver(meal);
+        }
+    }
+    public void addMeal(Meal meal) {
+        if (meal != null && !meals.contains(meal)) {
+            meals.add(meal);
+            this.addObserver(meal);
+        }
+    }
+
+    public boolean hasMeal(String mealName) {
+        for (Meal meal : meals) {
+            if (meal.getName().equalsIgnoreCase(mealName)) {
+                return true;
+            }
+        }
+        return false;
     }
     public double getDiscountFactor() {
         return discountFactor;
@@ -112,9 +128,6 @@ public class Restaurant extends User implements CustomObservable {
     }
     public boolean isSubscribed(Customer customer) {
         return subscribedCustomers.contains(customer);
-    }
-    public void addMeal(Meal meal) {
-        meals.add(meal);
     }
     public void removeMeal(Meal meal) {
         meals.remove(meal);

@@ -27,9 +27,8 @@ public class Customer extends User implements CustomObserver {
     private Order currentOrder = null;
     private List<Offer> notifs = new ArrayList<>();
 
-    public Customer(String username, String password, String firstName, String lastName, Coordinate address, List<ContactInfo> contactInfo) {
+    public Customer(String username, String password, String firstName, String lastName, Coordinate address) {
         super(username, password, address);
-        super.setContactInfos(contactInfo);
         this.firstName = firstName;
         this.lastName = lastName;
     }

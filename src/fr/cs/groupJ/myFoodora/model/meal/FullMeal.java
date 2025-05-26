@@ -11,8 +11,8 @@ public class FullMeal extends Meal {
     private Dish main;
     private Dish dessert;
 
-    public FullMeal(Dish starter, Dish main, Dish dessert, List<FoodType> foodTypes) {
-        super(foodTypes);
+    public FullMeal(String name,Dish starter, Dish main, Dish dessert, List<FoodType> foodTypes) {
+        super(name,foodTypes);
         this.starter = starter;
         this.main = main;
         this.dessert = dessert;

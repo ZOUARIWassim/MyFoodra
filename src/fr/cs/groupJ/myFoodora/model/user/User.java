@@ -54,7 +54,7 @@ public abstract class User {
     public List<ContactInfo> getContactInfos() {
         return contactInfos;
     }
-    protected void setContactInfos(List<ContactInfo> contactInfos) {
+    public void setContactInfos(List<ContactInfo> contactInfos) {
         this.contactInfos = contactInfos;
     }
 

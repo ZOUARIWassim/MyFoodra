@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Main {
 	public static void main(String[] args) {
 		List<Customer> customers = new ArrayList<>();
-		sysModel model = new sysModel(customers);
+		sysModel model = sysModel.getInstance();
         sysViewer view = new sysViewer();
         sysController controller = new sysController(model, view);
         

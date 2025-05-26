@@ -12,11 +12,13 @@ public abstract class Meal implements CustomObserver, Item {
 
     protected List<FoodType> foodTypes;
 
+    protected String name;
     protected double DISCOUNT_FACTOR = 0.05;
     protected double SPECIAL_DISCOUNT_FACTOR = 0.10;
     protected boolean isMealOfTheWeek = false;
     
-    public Meal(List<FoodType> foodTypes) {
+    public Meal(String name,List<FoodType> foodTypes) {
+        this.name = name;
         this.foodTypes = foodTypes;
     }
 
@@ -26,6 +28,12 @@ public abstract class Meal implements CustomObserver, Item {
     }
     public void setFoodTypes(List<FoodType> foodTypes) {
         this.foodTypes = foodTypes;
+    }
+    public String getName() {
+        return name;
+    }
+    protected void setName(String name) {
+        this.name = name;
     }
     public double getDiscountFactor() {
         if (isMealOfTheWeek) {
@@ -69,7 +77,7 @@ public abstract class Meal implements CustomObserver, Item {
     }
     
     // ===== CustomObserver Implementation =====
-    
+
     @Override
     public void update(CustomObservable o, Object arg){
         Object[] args = (Object[]) arg;

@@ -10,8 +10,8 @@ public class HalfMeal extends Meal {
     private Dish main;
     private Dish extra;
 
-    public HalfMeal(Dish main, Dish extra, List<FoodType> foodTypes) {
-        super(foodTypes);
+    public HalfMeal(String name,Dish main, Dish extra, List<FoodType> foodTypes) {
+        super(name,foodTypes);
         this.main = main;
         this.extra = extra;
     }

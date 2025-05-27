@@ -39,8 +39,6 @@ public class FullMeal extends Meal {
         this.dessert = dessert;
     }
 
-    // ===== Methods =====
-
     // ===== Overridden Methods from Meal SuperClass =====
 
     @Override

@@ -13,7 +13,6 @@ public class Menu {
     }
 
     // ===== Getters and Setters =====
-    
     public List<Dish> getDishes() {
         return dishes;
     }
@@ -22,7 +21,6 @@ public class Menu {
     }
 
     // ===== Methods =====
-
     public void addDish(Dish dish) {
         dishes.add(dish);
     }

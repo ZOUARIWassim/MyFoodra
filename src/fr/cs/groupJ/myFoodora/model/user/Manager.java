@@ -12,7 +12,6 @@ public class Manager extends User {
     private String firstName;
     private String lastName;
 
-    
     public Manager(String username, String password, String firstName, String lastName) {
     	super(username, password, null);
         this.firstName = firstName;
@@ -20,7 +19,6 @@ public class Manager extends User {
     }
 
     // ===== Getters and Setters =====
-
     public String getFirstName() {
         return firstName;
     }

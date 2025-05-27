@@ -15,7 +15,6 @@ public class BaseMeal extends Meal {
     }
 
     // ===== Overridden Methods from Meal SuperClass =====
-
     @Override
     public double getPrice() {
         return 10.0;

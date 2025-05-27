@@ -49,11 +49,9 @@ public class Courier extends User {
     }
 
     /// ===== Methods =====
-
     public void incrementDeliveredOrdersCount() {
         this.deliveredOrdersCount++;
     }
-     
     public void updatePosition(Coordinate newPosition) {
         if (newPosition != null) {
             super.setAdress(newPosition);
@@ -61,18 +59,15 @@ public class Courier extends User {
             throw new IllegalArgumentException("New position cannot be null");
         }
     }
-
     public boolean refuseDeliveryCall() {
         return false;
     }
 
     /// ===== Overridden Methods from User =====
-    
     @Override
 	public Role getRole() {
 		return Role.COURIER;
 	}
-
     @Override
     public String toString() {
         return String.format("Courier [id=%d, username=%s, firstName=%s, lastName=%s, position=%s, isOnDuty=%b, deliveredOrdersCount=%d]",

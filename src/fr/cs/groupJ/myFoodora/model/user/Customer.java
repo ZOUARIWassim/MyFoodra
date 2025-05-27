@@ -34,7 +34,6 @@ public class Customer extends User implements CustomObserver {
     }
 
     // ===== Getters and Setters =====
-
     public String getFirstName() {
         return firstName;
     }
@@ -104,7 +103,6 @@ public class Customer extends User implements CustomObserver {
     }
 
     // ===== Methods =====
-
     public void createOrder(Restaurant restaurant, String orderName) {
         List<Item> items = new ArrayList<>();
         this.foodCart.add(new Order(orderName, this, restaurant));
@@ -159,14 +157,12 @@ public class Customer extends User implements CustomObserver {
     }
 
     // ===== Overridden Methods from User =====
-
     @Override
     public Role getRole() {
         return Role.CUSTOMER;
     }
     
     // ===== Overridden Methods from CustomObserver =====
-
     @Override
     public void update(CustomObservable o, Object arg) {
         Object[] args = (Object[]) arg;

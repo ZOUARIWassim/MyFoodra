@@ -1,14 +1,14 @@
 package fr.cs.groupJ.myFoodora.model;
 
-import fr.cs.groupJ.myFoodora.util.Coordinate;
+import fr.cs.groupJ.myFoodora.model.restaurant.Restaurant;
+import fr.cs.groupJ.myFoodora.model.order.Order;
 import fr.cs.groupJ.myFoodora.util.DishCategory;
+import fr.cs.groupJ.myFoodora.util.Coordinate;
+import fr.cs.groupJ.myFoodora.model.menu.Menu;
+import fr.cs.groupJ.myFoodora.model.Dish.Dish;
 import fr.cs.groupJ.myFoodora.util.FoodType;
 import fr.cs.groupJ.myFoodora.model.user.*;
-import fr.cs.groupJ.myFoodora.model.Dish.Dish;
-import fr.cs.groupJ.myFoodora.model.menu.Menu;
-import fr.cs.groupJ.myFoodora.model.order.Order;
 import fr.cs.groupJ.myFoodora.model.meal.*;
-import fr.cs.groupJ.myFoodora.model.restaurant.Restaurant;
 import fr.cs.groupJ.myFoodora.util.Date;
 
 import java.util.ArrayList;
@@ -16,32 +16,30 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+public class SysModel {
 
-public class sysModel {
-
-	private static sysModel instance = null;
+	private static SysModel instance = null;
 	private List<Customer> Customers = new ArrayList<>();
 	private List<Courier> Couriers = new ArrayList<>();
 	private final Map<String, User> userMap = new HashMap<>();
 	private final Map<String, Restaurant> restaurantMap = new HashMap<>();
 	private User currentUser;
 	
-	private sysModel(List<Customer> Customers) {
+	private SysModel(List<Customer> Customers) {
 		this.Customers = Customers;
         Manager ceo = new Manager("ceo", "123456789", "Default", "Manager");
         userMap.put(ceo.getUsername(), ceo);
 		
 	}
 
-	public static sysModel getInstance() {
+	public static SysModel getInstance() {
 		if (instance == null) {
-			instance = new sysModel(new ArrayList<>());
+			instance = new SysModel(new ArrayList<>());
 		}
 		return instance;
 	}
 	
 	// ===== Getters and Setters =====
-
 	public List<Customer> getCustomers() {
 		return Customers;
 	}
@@ -62,8 +60,7 @@ public class sysModel {
 	}
 
 
-	// ===== Methods =====
-
+	// ===== Manager Methods =====
 	public void addCustomer(String firstName,String lastName,String username, double longitude,double latitude,String password) {
 		if (userMap.containsKey(username)) {
             throw new IllegalArgumentException("Username already exists.");
@@ -80,9 +77,6 @@ public class sysModel {
 	    userMap.put(courier.getUsername(), courier);
 	    this.Couriers.add(courier);
 	}
-
-	// ===== Restaurant Methods =====
-
 	public void addRestaurant(String name, Coordinate adress, String username, String password) {
 		if (userMap.containsKey(username)) {
 			throw new IllegalArgumentException("Username already exists.");
@@ -91,6 +85,47 @@ public class sysModel {
 		userMap.put(restaurant.getUsername(), restaurant);
 		restaurantMap.put(restaurant.getName(), restaurant);
 	}
+	public void showMenuItem(String restaurantName) {
+		Restaurant restaurant = restaurantMap.get(restaurantName);
+		if (restaurant == null) {
+			throw new IllegalArgumentException("Restaurant not found.");
+		}
+		
+		System.out.println("Menu for " + restaurant.getName() + ":");
+		for (Dish dish : restaurant.getMenu().getDishes()) {
+			System.out.println("- " + dish.getName() + " (" + dish.getCategory() + ") - " + dish.getPrice() + "$");
+		}
+		
+		System.out.println("Meals for " + restaurant.getName() + ":"); 
+		for (Meal meal : restaurant.getMeals()) {
+			System.out.println("- " + meal.getName() + " - " + meal.getPrice() + "$");
+		}
+	}
+	public void associateCard(String username, String RestaurantName, String cardType) {
+		Manager manager = (Manager) currentUser;
+		Customer customer = (Customer) userMap.get(username);
+		Restaurant restaurant = restaurantMap.get(RestaurantName);
+		if (customer == null) {
+			throw new IllegalArgumentException("Customer not found.");
+		}
+		if (!customer.getFidelityCards().isEmpty()) {
+			throw new IllegalStateException("Customer already has a fidelity card.");
+		}
+		manager.associateCard(restaurant, customer, cardType);
+	}
+	public void showCustomers() {
+		if (Customers.isEmpty()) {
+			System.out.println("No customers available.");
+			return;
+		}
+		System.out.println("Customers:");
+		for (Customer customer : Customers) {
+			System.out.println("- " + customer.getFirstName() + " " + customer.getLastName() + " (" + customer.getUsername() + ")");
+		}
+	}
+
+
+	// ===== Restaurant Methods =====	
 	public void addDish(String dishName, String dishCategory, String foodType, double unitPrice){
 		Restaurant restaurant = (Restaurant) currentUser;
 		DishCategory dishCategoryEnum;
@@ -108,7 +143,6 @@ public class sysModel {
 		Dish dish = new Dish(dishName, dishCategoryEnum, List.of(foodTypeEnum), unitPrice);
 		restaurant.getMenu().addDish(dish);
 	}
-
 	public void createMeal(String mealName) {
 		Restaurant restaurant = (Restaurant) currentUser;
 		if (restaurant.hasMeal(mealName)) {
@@ -117,7 +151,6 @@ public class sysModel {
 		Meal meal = new BaseMeal(mealName, new ArrayList<>());
 		restaurant.getMeals().add(meal);
 	}
-
 	public void addDishToMeal(String dishName, String mealName) {
 		Restaurant restaurant = (Restaurant) currentUser;
 		Meal meal = restaurant.getMeal(mealName);
@@ -130,7 +163,6 @@ public class sysModel {
 		
 		meal.addDish(dish);
 	}
-
 	public void showMeal(String mealName) {
 		Restaurant restaurant = (Restaurant) currentUser;
 		Meal meal = restaurant.getMeal(mealName);
@@ -146,7 +178,6 @@ public class sysModel {
 		}
 		System.out.println("Price: " + meal.getPrice());
 	}
-
 	public void saveMeal(String mealName) {
 		Restaurant restaurant = (Restaurant) currentUser;
 		Meal meal = restaurant.getMeal(mealName);
@@ -184,7 +215,6 @@ public class sysModel {
 			throw new IllegalArgumentException("Meal must contain at least a main dish and a dessert or a starter.");
 		}
 	}
-
 	public void setMealOfTheWeek(String mealName) {
 		Restaurant restaurant = (Restaurant) currentUser;
 		Meal meal = restaurant.getMeal(mealName);
@@ -195,7 +225,6 @@ public class sysModel {
 		
 		restaurant.setMealOfTheWeek(meal);
 	}
-
 	public void removeMealOfTheWeek(String mealName) {
 		Restaurant restaurant = (Restaurant) currentUser;
 		Meal meal = restaurant.getMeal(mealName);
@@ -206,9 +235,8 @@ public class sysModel {
 		
 		restaurant.removeMealOfTheWeek(meal);
 	}
-
-	// ===== Order Methods =====
-
+	
+	// ===== Customer Methods =====
 	public void createOrder(String restaurantName, String orderName) {
 		if (currentUser == null || !(currentUser instanceof Customer)) {
 			throw new IllegalStateException("You must be logged in as a customer to create an order.");
@@ -220,7 +248,6 @@ public class sysModel {
 		}
 		customer.createOrder(restaurant, orderName);
 	}
-
 	public void addItemToOrder(String orderName, String dishName) {
 		Customer customer = (Customer) currentUser;
 		Order order = customer.getOrder(orderName);
@@ -260,8 +287,7 @@ public class sysModel {
 		order.finalizeOrder(orderDateObj);
 	}
 	
-		// ===== Courrier Methods =====
-
+	// ===== Courrier Methods =====
 	public void setCourierOnDuty(String username) {
 		Courier courier = (Courier) currentUser;
 		if (!courier.getUsername().equals(username)) {
@@ -269,7 +295,6 @@ public class sysModel {
 		}
 		courier.setOnDuty();
 	}
-
 	public void setCourierOffDuty(String username) {
 		Courier courier = (Courier) currentUser;
 		if (!courier.getUsername().equals(username)) {
@@ -278,23 +303,7 @@ public class sysModel {
 		courier.setOffDuty();
 	}
 	
-	// ===== Card Methods =====
-	public void associateCard(String username, String RestaurantName, String cardType) {
-		Manager manager = (Manager) currentUser;
-		Customer customer = (Customer) userMap.get(username);
-		Restaurant restaurant = restaurantMap.get(RestaurantName);
-		if (customer == null) {
-			throw new IllegalArgumentException("Customer not found.");
-		}
-		if (!customer.getFidelityCards().isEmpty()) {
-			throw new IllegalStateException("Customer already has a fidelity card.");
-		}
-		manager.associateCard(restaurant, customer, cardType);
-	}
-
-	
-	// ===== Authentication Methods =====
-
+	// ===== General Methods =====
 	public boolean login(String username, String password) {
 		if (this.currentUser != null) {
 			throw new IllegalStateException("A user is already logged in. Please log out first.");
@@ -312,6 +321,4 @@ public class sysModel {
 		}
         this.currentUser = null;
     }
-
-
 }

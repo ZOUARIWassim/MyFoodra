@@ -1,18 +1,17 @@
 package fr.cs.groupJ.myFoodora.factory;
 
+import fr.cs.groupJ.myFoodora.model.fidelityCard.LotteryFidelityCard;
+import fr.cs.groupJ.myFoodora.model.fidelityCard.PointFidelityCard;
 import fr.cs.groupJ.myFoodora.model.fidelityCard.BasicFidelityCard;
 import fr.cs.groupJ.myFoodora.model.fidelityCard.FidelityCard;
-import fr.cs.groupJ.myFoodora.model.fidelityCard.LotteryFidelityCard;
 import fr.cs.groupJ.myFoodora.model.restaurant.Restaurant;
-import fr.cs.groupJ.myFoodora.model.fidelityCard.PointFidelityCard;
 import fr.cs.groupJ.myFoodora.model.user.Customer;
 
 public class FidelityCardFactory {
 
     private static FidelityCardFactory instance;
-
     private FidelityCardFactory() {
-        
+             
     }
 
     public static FidelityCardFactory getInstance() {

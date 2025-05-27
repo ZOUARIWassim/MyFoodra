@@ -17,7 +17,6 @@ public class HalfMeal extends Meal {
     }
 
     // ===== Getters and Setters =====
-
     public Dish getMain() {
         return main;
     }
@@ -31,7 +30,6 @@ public class HalfMeal extends Meal {
         this.extra = extra;
     }
 
-    // ===== Methods =====
 
     // ===== Overridden Methods from Meal Interface =====
     @Override

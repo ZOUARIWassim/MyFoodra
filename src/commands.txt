@@ -29,3 +29,5 @@ offDuty wassim
 logout
 login ceo 123456789
 associateCard wass LaCouret Basic
+showCustomers
+showMenuItem LaCouret

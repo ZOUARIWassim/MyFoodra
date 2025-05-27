@@ -13,11 +13,11 @@ import java.util.List;
 public class Order {
 
     private String orderName;
-    private Date orderDate = null;
     private Customer customer;
     private Restaurant restaurant;
-    private boolean isFinalized = false;
 
+    private Date orderDate = null;
+    private boolean isFinalized = false;
     private List<Item> items = new ArrayList<>();
 
     public Order( String name, Customer customer,Restaurant restaurant) {
@@ -60,8 +60,8 @@ public class Order {
     public boolean isFinalized() {
         return isFinalized;
     }
-    // ===== Methods =====
 
+    // ===== Methods =====
     public void finalizeOrder(Date inputDate) {
         if (items.isEmpty()) {
             throw new IllegalStateException("Cannot finalize order with no items.");
@@ -86,7 +86,6 @@ public class Order {
             throw new IllegalStateException("Item not found in the order.");
         }
     }
-
     public double calculateBasePrice() {
         double total = 0.0;
         for (Item item : items) {

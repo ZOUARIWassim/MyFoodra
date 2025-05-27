@@ -11,8 +11,8 @@ import java.util.List;
 public abstract class Meal implements CustomObserver, Item {
 
     protected List<FoodType> foodTypes;
-
     protected String name;
+
     protected double DISCOUNT_FACTOR = 0.05;
     protected double SPECIAL_DISCOUNT_FACTOR = 0.10;
     protected boolean isMealOfTheWeek = false;
@@ -61,6 +61,9 @@ public abstract class Meal implements CustomObserver, Item {
     public boolean isVegetarian() {
         return foodTypes.contains(FoodType.VEGETARIAN);
     }
+
+    //// ===== Meal of the Week Methods =====
+    
     public void setMeatOfTheWeek() {
         if (isMealOfTheWeek) {
             throw new IllegalStateException("This meal is already set as Meal of the Week.");

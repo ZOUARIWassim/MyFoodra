@@ -26,7 +26,6 @@ public abstract class User {
     }
 
     // ===== Getters and Setters =====
-
     public int getId() {
         return id;
     }
@@ -59,11 +58,9 @@ public abstract class User {
     }
 
     // ===== Abstract Methods =====
-
     public abstract Role getRole();
 
     // ===== Methods =====
-
     public boolean checkPassword(String inputPassword) {
         return password.equals(inputPassword);
     }

@@ -9,8 +9,8 @@ import java.util.List;
 public class Dish implements Item {
     
     private String name;
-    private DishCategory category;
     private double price;
+    private DishCategory category;
     private List<FoodType> types;
 
     public Dish(String name, DishCategory category, List<FoodType> types, double price) {
@@ -21,7 +21,6 @@ public class Dish implements Item {
     }
 
     // ===== Getters and Setters =====
-
     public String getName() {
         return name;
     }

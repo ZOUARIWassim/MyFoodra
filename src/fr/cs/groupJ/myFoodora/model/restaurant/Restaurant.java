@@ -38,7 +38,6 @@ public class Restaurant extends User implements CustomObservable {
     }
 
     // ===== Getters and Setters =====
-
     public String getName() {
         return name;
     }
@@ -63,6 +62,12 @@ public class Restaurant extends User implements CustomObservable {
     public List<Meal> getMeals() {
         return meals;
     }
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
+        for (Meal meal : meals) {
+            this.addObserver(meal);
+        }
+    }
     public Meal getMeal(String mealName) {
         for (Meal meal : meals) {
             if (meal.getName().equalsIgnoreCase(mealName)) {
@@ -79,19 +84,12 @@ public class Restaurant extends User implements CustomObservable {
         }
         return null;
     }
-    public void setMeals(List<Meal> meals) {
-        this.meals = meals;
-        for (Meal meal : meals) {
-            this.addObserver(meal);
-        }
-    }
     public void addMeal(Meal meal) {
         if (meal != null && !meals.contains(meal)) {
             meals.add(meal);
             this.addObserver(meal);
         }
     }
-
     public boolean hasMeal(String mealName) {
         for (Meal meal : meals) {
             if (meal.getName().equalsIgnoreCase(mealName)) {
@@ -126,7 +124,6 @@ public class Restaurant extends User implements CustomObservable {
     }
 
     // ===== Methods  =====
-
     public void subscribeCustomer(Customer customer) {
         if (customer != null && !subscribedCustomers.contains(customer)) {
             subscribedCustomers.add(customer);
@@ -176,7 +173,6 @@ public class Restaurant extends User implements CustomObservable {
     }
 
     // ===== Overridden Methods from CustomObservable =====
-
     @Override
     public void addObserver(CustomObserver observer) {
         observers.add(observer);
@@ -215,7 +211,6 @@ public class Restaurant extends User implements CustomObservable {
     }
 
     // ===== Overridden Methods from User =====
-
     @Override
     public Role getRole() {
         return Role.RESTAURANT;

@@ -1,6 +1,10 @@
 package fr.cs.groupJ.myFoodora.model.user;
 
 import fr.cs.groupJ.myFoodora.util.Coordinate;
+import fr.cs.groupJ.myFoodora.model.restaurant.Restaurant;
+import fr.cs.groupJ.myFoodora.factory.FidelityCardFactory;
+import fr.cs.groupJ.myFoodora.model.fidelityCard.FidelityCard;
+import fr.cs.groupJ.myFoodora.model.user.*;
 import fr.cs.groupJ.myFoodora.util.Role;
 
 public class Manager extends User {
@@ -30,7 +34,11 @@ public class Manager extends User {
         this.lastName = lastName;
     }
     
-    
+    public void associateCard(Restaurant restaurant, Customer customer, String cardType) {
+        FidelityCardFactory factory = FidelityCardFactory.getInstance();
+        FidelityCard card = factory.createFidelityCard(cardType, restaurant, customer);
+        customer.addFidelityCard(card);
+    }
     
     // public void addUser(User user) {
     //     UserRepository.getInstance().add(user);

@@ -3,13 +3,13 @@ package fr.cs.groupJ.myFoodora.model.menu;
 import fr.cs.groupJ.myFoodora.model.Dish.Dish;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Menu {
 
-    private List<Dish> dishes;
+    private List<Dish> dishes = new ArrayList<>();
 
-    public Menu(List<Dish> dishes) {
-        this.dishes = dishes;
+    public Menu() {
     }
 
     // ===== Getters and Setters =====

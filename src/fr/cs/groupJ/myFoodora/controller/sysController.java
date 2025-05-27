@@ -83,9 +83,102 @@ public class sysController {
                     } else {
                         view.showError("Access denied. This command requires role: " + Role.RESTAURANT);
                     }
-
+                    break;
+                case "addDishRestaurantMenu":
+                    if (AccessControl.roleControl(Role.RESTAURANT, model)) {
+                        handleAddDishRestaurant(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.RESTAURANT);
+                    }
+                    break;
+                case "createMeal":
+                    if (AccessControl.roleControl(Role.RESTAURANT, model)) {
+                        handlCreateMeal(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.RESTAURANT);
+                    }
+                    break;
+                case "addDish2Meal":
+                    if (AccessControl.roleControl(Role.RESTAURANT, model)) {
+                        handleAddDish2Meal(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.RESTAURANT);
+                    }
+                    break;
+                case "showMeal":
+                    if (AccessControl.roleControl(Role.RESTAURANT, model)) {
+                        handleShowMeal(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.RESTAURANT);
+                    }
+                    break;
+                case "saveMeal":
+                    if (AccessControl.roleControl(Role.RESTAURANT, model)) {
+                        handleSaveMeal(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.RESTAURANT);
+                    }
+                    break;
+                case "setSpecialOffer":
+                    if (AccessControl.roleControl(Role.RESTAURANT, model)) {
+                        handleSetSpecialOffer(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.RESTAURANT);
+                    }
+                    break;
+                case "removeFromSpecialOffer":
+                    if (AccessControl.roleControl(Role.RESTAURANT, model)) {
+                        handleRemoveFromSpecialOffer(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.RESTAURANT);
+                    }
+                    break;
+                case "createOrder":
+                    if (AccessControl.roleControl(Role.CUSTOMER, model)) {
+                        handleCreateOrder(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.CUSTOMER);
+                    }
+                    break;
+                case "addItem2Order":
+                    if (AccessControl.roleControl(Role.CUSTOMER, model)) {
+                        handleAddItem2Order(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.CUSTOMER);
+                    }
+                    break;
+                case "endOrder":
+                    if (AccessControl.roleControl(Role.CUSTOMER, model)) {
+                        handleEndOrder(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.CUSTOMER);
+                    }
+                    break;
+                case "onDuty":
+                    if (AccessControl.roleControl(Role.COURIER, model)) {
+                        handleOnDutyCourier(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.COURIER);
+                    }
+                    break;
+                case "offDuty":
+                    if (AccessControl.roleControl(Role.COURIER, model)) {
+                        handleOffDutyCourier(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.COURIER);
+                    }
+                    break;
+                case "associateCard":
+                    if (AccessControl.roleControl(Role.MANAGER, model)) {
+                        handleAssociateCard(tokens);
+                    } else {
+                        view.showError("Access denied. This command requires role: " + Role.MANAGER);
+                    }
+                    break;
+                    
                 default:
                     view.showError("Unknown command: " + command);
+
             }
         } catch (Exception e) {
             view.showError("Command failed: " + e.getMessage());
@@ -111,7 +204,7 @@ public class sysController {
             view.showError("Longitude and latitude must be valid numbers.");
             return;
         }
-        String password = args[5];
+        String password = args[6];
         try {
             model.addCustomer(firstName, lastName, username, longitude, latitude, password);
             view.showMessage("Customer registered: " + username);
@@ -169,7 +262,7 @@ public class sysController {
             view.showError("Longitude and latitude must be valid numbers.");
             return;
         }
-        String password = args[5];
+        String password = args[6];
         Coordinate position = new Coordinate(longitude, latitude);
         Courier courier = new Courier(username, password, firstName, lastName, position);
         try {
@@ -209,7 +302,7 @@ public class sysController {
     }
     private void handleAddDishRestaurant(String[] args) {
         if (args.length < 5) {
-            view.showError("Usage: addDishRestaurant <dishName> <dishCategory> <foodCategory> <unitPrice>");
+            view.showError("Usage: addDishRestaurantMenu <dishName> <dishCategory> <foodCategory> <unitPrice>");
             return;
         }
         String dishName = args[1];
@@ -229,114 +322,178 @@ public class sysController {
             view.showError(e.getMessage());
         }
     }
-    // private void handlCreateMeal(String[] args) {
-    //     if (args.length < 2) {
-    //         view.showError("Usage: createMeal <mealName>");
-    //         return;
-    //     }
-    //     String mealName = args[1];
-    //     try {
-    //         model.createMeal(mealName);
-    //         view.showMessage("Meal created: " + mealName);
-    //     } catch (IllegalArgumentException e) {
-    //         view.showError(e.getMessage());
-    //     }
-    // }
-    // public handleAddDish2Meal(String[] args) {
-    //     if (args.length < 3) {
-    //         view.showError("Usage: addDish2Meal <dishName> <mealName>");
-    //         return;
-    //     }
-    //     String dishName = args[1];
-    //     String mealName = args[2];
-    //     User currentUser = model.getCurrentUser();
-    //     if (currentUser == null || !(currentUser instanceof Restaurant)) {
-    //         view.showError("You must be logged in as a restaurant to add a dish to a meal.");
-    //         return;
-    //     }
-    //     Restaurant restaurant = (Restaurant) currentUser;
-    //     try {
-    //         model.addDishToMeal(dishName, mealName);
-    //         view.showMessage("Dish added to meal: " + dishName + " in " + mealName);
-    //     } catch (IllegalArgumentException e) {
-    //         view.showError(e.getMessage());
-    //     }
-    // }
-    // public handleShowMeal(String[] args) {
-    //     if (args.length < 2) {
-    //         view.showError("Usage: showMeal <mealName>");
-    //         return;
-    //     }
-    //     String mealName = args[1];
-    //     User currentUser = model.getCurrentUser();
-    //     if (currentUser == null || !(currentUser instanceof Restaurant)) {
-    //         view.showError("You must be logged in as a restaurant to show a meal.");
-    //         return;
-    //     }
-    //     Restaurant restaurant = (Restaurant) currentUser;
-    //     try {
-    //         model.showMeal(mealName);
-    //         view.showMealDetails(meal);
-    //     } catch (IllegalArgumentException e) {
-    //         view.showError(e.getMessage());
-    //     }
-    // }
-    // public handleSaveMeal(String[] args) {
-    //     if (args.length < 2) {
-    //         view.showError("Usage: saveMeal <mealName>");
-    //         return;
-    //     }
-    //     String mealName = args[1];
-    //     User currentUser = model.getCurrentUser();
-    //     if (currentUser == null || !(currentUser instanceof Restaurant)) {
-    //         view.showError("You must be logged in as a restaurant to save a meal.");
-    //         return;
-    //     }
-    //     Restaurant restaurant = (Restaurant) currentUser;
-    //     try {
-    //         model.saveMeal(mealName);
-    //         view.showMessage("Meal saved: " + mealName);
-    //     } catch (IllegalArgumentException e) {
-    //         view.showError(e.getMessage());
-    //     }
-    // }
-    // public handleSetSpecialOffer(String[] args) {
-    //     if (args.length < 2) {
-    //         view.showError("Usage: setSpecialOffer <mealName>");
-    //         return;
-    //     }
-    //     String mealName = args[1];
-    //     User currentUser = model.getCurrentUser();
-    //     if (currentUser == null || !(currentUser instanceof Restaurant)) {
-    //         view.showError("You must be logged in as a restaurant to set a meal of the week.");
-    //         return;
-    //     }
-    //     Restaurant restaurant = (Restaurant) currentUser;
-    //     try {
-    //         model.setMealOfTheWeek(mealName);
-    //         view.showMessage("Meal of the week set: " + mealName);
-    //     } catch (IllegalArgumentException e) {
-    //         view.showError(e.getMessage());
-    //     }
-    // }
-    // public handleRemoveFromSpecialOffer(String[] args) {
-    //     if (args.length < 2) {
-    //         view.showError("Usage: removeFromSpecialOffer <mealName>");
-    //         return;
-    //     }
-    //     String mealName = args[1];
-    //     User currentUser = model.getCurrentUser();
-    //     if (currentUser == null || !(currentUser instanceof Restaurant)) {
-    //         view.showError("You must be logged in as a restaurant to remove a meal from the week.");
-    //         return;
-    //     }
-    //     Restaurant restaurant = (Restaurant) currentUser;
-    //     try {
-    //         model.removeMealOfTheWeek(mealName);
-    //         view.showMessage("Meal removed from the week: " + mealName);
-    //     } catch (IllegalArgumentException e) {
-    //         view.showError(e.getMessage());
-    //     }
-    // }
+    private void handlCreateMeal(String[] args) {
+        if (args.length < 2) {
+            view.showError("Usage: createMeal <mealName>");
+            return;
+        }
+        String mealName = args[1];
+        try {
+            model.createMeal(mealName);
+            view.showMessage("Meal created: " + mealName);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
+    public void handleAddDish2Meal(String[] args) {
+        if (args.length < 3) {
+            view.showError("Usage: addDish2Meal <dishName> <mealName>");
+            return;
+        }
+        String dishName = args[1];
+        String mealName = args[2];
+        try {
+            model.addDishToMeal(dishName, mealName);
+            view.showMessage("Dish added to meal: " + dishName + " in " + mealName);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
+    public void handleShowMeal(String[] args) {
+        if (args.length < 2) {
+            view.showError("Usage: showMeal <mealName>");
+            return;
+        }
+        String mealName = args[1];
+        try {
+            view.showMessage("Meal details for: " + mealName);
+            model.showMeal(mealName);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
+    public void handleSaveMeal(String[] args) {
+        if (args.length < 2) {
+            view.showError("Usage: saveMeal <mealName>");
+            return;
+        }
+        String mealName = args[1];
+        try {
+            model.saveMeal(mealName);
+            view.showMessage("Meal saved: " + mealName);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
+    public void handleSetSpecialOffer(String[] args) {
+        if (args.length < 2) {
+            view.showError("Usage: setSpecialOffer <mealName>");
+            return;
+        }
+        String mealName = args[1];
+        try {
+            model.setMealOfTheWeek(mealName);
+            view.showMessage("Meal of the week set: " + mealName);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
+    public void handleRemoveFromSpecialOffer(String[] args) {
+        if (args.length < 2) {
+            view.showError("Usage: removeFromSpecialOffer <mealName>");
+            return;
+        }
+        String mealName = args[1];
+        try {
+            model.removeMealOfTheWeek(mealName);
+            view.showMessage("Meal removed from the week: " + mealName);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
+
+    // === Order management commands ===
+
+    public void handleCreateOrder(String[] args) {
+        if (args.length < 3) {
+            view.showError("Usage: createOrder <restaurantName> <orderName>");
+            return;
+        }
+        String restaurantName = args[1];
+        String orderName = args[2];
+        try {
+            model.createOrder(restaurantName, orderName);
+            view.showMessage("Order created: " + orderName + " at " + restaurantName);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
+
+    public void handleAddItem2Order(String[] args) {
+        if (args.length < 3) {
+            view.showError("Usage: addItem2Order <orderName> <itemName>");
+            return;
+        }
+        String orderName = args[1];
+        String itemName = args[2];
+        try {
+            model.addItemToOrder(orderName, itemName);
+            view.showMessage("Item added to order: " + itemName + " in " + orderName);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
+    public void handleEndOrder(String[] args) {
+        if (args.length < 3) {
+            view.showError("Usage: endOrder <orderName> <Date> (dd/mm/yyyy hh:mm)");
+            return;
+        }
+        String orderName = args[1];
+        String date = args[2] + " " + args[3]; 
+        try {
+            model.endOrder(orderName, date);
+            view.showMessage("Order ended: " + orderName + " on " + date);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
+
+    // === Courrier management commands ===
+
+    public void handleOnDutyCourier(String[] args) {
+        if (args.length < 2) {
+            view.showError("Usage: onDuty <courierName>");
+            return;
+        }
+        String courierName = args[1];
+        try {
+            model.setCourierOnDuty(courierName);
+            view.showMessage("Courier is now on duty: " + courierName);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
+
+    public void handleOffDutyCourier(String[] args) {
+        if (args.length < 2) {
+            view.showError("Usage: offDuty <courierName>");
+            return;
+        }
+        String courierName = args[1];
+        try {
+            model.setCourierOffDuty(courierName);
+            view.showMessage("Courier is now off duty: " + courierName);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
+
+    // === Delevery management commands ===
+   
+    public void handleAssociateCard(String[] args) {
+        if (args.length < 4) {
+            view.showError("Usage: associateCard <userName> <Restaurant> <cardType> ");
+            return;
+        }
+        String userName = args[1];
+        String restaurantName = args[2];
+        String cardType = args[3];
+        try {
+            model.associateCard(userName, restaurantName, cardType);
+            view.showMessage("Card associated: " + cardType + " for user " + userName);
+        } catch (IllegalArgumentException e) {
+            view.showError(e.getMessage());
+        }
+    }
 
 }

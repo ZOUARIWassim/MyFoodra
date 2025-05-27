@@ -15,7 +15,6 @@ public class Courier extends User {
     	this.firstName = firstName;
         this.lastName = lastName;
         this.deliveredOrdersCount = 0;
-        this.isOnDuty = true;  
     }
     // ===== Getters and Setters =====
     public String getFirstName() {
@@ -33,8 +32,17 @@ public class Courier extends User {
     public boolean isOnDuty() {
         return isOnDuty;
     }
-    public void setOnDuty(boolean onDuty) {
-        isOnDuty = onDuty;
+    public void setOnDuty() {
+        if (isOnDuty) {
+            throw new IllegalStateException("Courier is already on duty.");
+        }
+        isOnDuty = true;
+    }
+    public void setOffDuty() {
+        if (!isOnDuty) {
+            throw new IllegalStateException("Courier is already off duty.");
+        }
+        isOnDuty = false;
     }
     public int getDeliveredOrdersCount() {
         return deliveredOrdersCount;

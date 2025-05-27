@@ -1,0 +1,31 @@
+login ceo 123456789
+registerCustomer wass wass wass 15 15 wass
+registerRestaurant LaCouret 15 15 lacouret 123456789
+registerCourier wass wass wassim 15 15 wass
+logout
+login lacouret 123456789
+addDishRestaurantMenu Soupe Starter Standard 12.5
+addDishRestaurantMenu coscos Main_course Standard 12.5
+addDishRestaurantMenu glace Dessert Standard 12.5
+createMeal TestMeal
+addDish2Meal Soupe TestMeal
+addDish2Meal coscos TestMeal
+addDish2Meal glace TestMeal
+showMeal TestMeal
+saveMeal TestMeal
+setSpecialOffer TestMeal
+removeFromSpecialOffer TestMeal
+logout
+login wass wass
+createOrder LaCouret testOrder
+addItem2Order testOrder TestMeal
+addItem2Order testOrder glace
+endOrder testOrder 18/11/2002 11:15
+logout 
+login wassim wass
+whoami
+onDuty wassim
+offDuty wassim
+logout
+login ceo 123456789
+associateCard wass LaCouret Basic

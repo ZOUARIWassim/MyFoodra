@@ -1,5 +1,7 @@
 package fr.cs.groupJ.myFoodora.util;
 
+import java.util.Calendar;
+
 public class Date {
     private int day;
     private int month;
@@ -11,6 +13,13 @@ public class Date {
         this.month = month;
         this.year = year;
         this.time = time;
+    }
+    public Date() {
+        Calendar calendar = Calendar.getInstance();
+        this.day = calendar.get(Calendar.DAY_OF_MONTH);
+        this.month = calendar.get(Calendar.MONTH) + 1; 
+        this.year = calendar.get(Calendar.YEAR);
+        this.time = String.format("%02d:%02d", calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
     }
 
     // ===== Getters and Setters =====

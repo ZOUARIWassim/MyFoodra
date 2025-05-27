@@ -7,6 +7,7 @@ import fr.cs.groupJ.myFoodora.model.meal.Meal;
 import fr.cs.groupJ.myFoodora.model.menu.Menu;
 import fr.cs.groupJ.myFoodora.model.user.User;
 import fr.cs.groupJ.myFoodora.util.Coordinate;
+import fr.cs.groupJ.myFoodora.model.Dish.Dish;
 import fr.cs.groupJ.myFoodora.util.Offer;
 import fr.cs.groupJ.myFoodora.util.Role;
 
@@ -16,8 +17,8 @@ import java.util.List;
 public class Restaurant extends User implements CustomObservable {
 
     private String name;
-    private Menu menu;
-    private List<Meal> meals;
+    private Menu menu = new Menu();
+    private List<Meal> meals = new ArrayList<>();
 
     private List<Offer> offers;
     private List<Customer> subscribedCustomers = new ArrayList<>();
@@ -61,6 +62,22 @@ public class Restaurant extends User implements CustomObservable {
     }
     public List<Meal> getMeals() {
         return meals;
+    }
+    public Meal getMeal(String mealName) {
+        for (Meal meal : meals) {
+            if (meal.getName().equalsIgnoreCase(mealName)) {
+                return meal;
+            }
+        }
+        return null;
+    }
+    public Dish getDish(String dishName) {
+        for (Dish dish : menu.getDishes()) {
+            if (dish.getName().equalsIgnoreCase(dishName)) {
+                return dish;
+            }
+        }
+        return null;
     }
     public void setMeals(List<Meal> meals) {
         this.meals = meals;
@@ -142,6 +159,12 @@ public class Restaurant extends User implements CustomObservable {
             }
         }
         meal.setMeatOfTheWeek();
+    }
+    public void removeMealOfTheWeek(Meal meal) {
+        if (meal == null || !meal.isMealOfTheWeek()) {
+            throw new IllegalArgumentException("Meal is not set as Meal of the Week.");
+        }
+        meal.deleteMealOfTheWeek();
     }
     public Meal getMealOfTheWeek() {
         for (Meal meal : meals) {

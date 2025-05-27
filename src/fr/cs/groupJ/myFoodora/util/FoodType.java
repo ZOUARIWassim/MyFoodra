@@ -3,7 +3,7 @@ package fr.cs.groupJ.myFoodora.util;
 public enum FoodType {
     VEGETARIAN("Vegetarian"),
     GLUTEN_FREE("Gluten Free"),
-    STANDART("Standard");
+    STANDARD("Standard");
 
     private final String displayName;
 

@@ -22,9 +22,9 @@ public class Customer extends User implements CustomObserver {
     private String firstName;
     private String lastName;
 
-    private FidelityCard fidelityCard = null;
+    private List<FidelityCard> fidelityCards = new ArrayList<>();
     private int points = 0;
-    private Order currentOrder = null;
+    private List<Order> foodCart = new ArrayList<>();
     private List<Offer> notifs = new ArrayList<>();
 
     public Customer(String username, String password, String firstName, String lastName, Coordinate address) {
@@ -57,38 +57,70 @@ public class Customer extends User implements CustomObserver {
             throw new IllegalArgumentException("Offer not found in notifications.");
         }
     }
+    public void addOffer(Offer offer) {
+        if (offer != null && !notifs.contains(offer)) {
+            notifs.add(offer);
+        } else {
+            throw new IllegalArgumentException("Offer is null or already exists in notifications.");
+        }
+    }
     public int getPoints() {
         return points;
     }
     public void setPoints(int points) {
         this.points = points;
     }
-    public FidelityCard getFidelityCard() {
-        return fidelityCard;
+    public List<FidelityCard> getFidelityCards() {
+        return fidelityCards;
     }
-    public void setFidelityCard(FidelityCard fidelityCard) {
-        this.fidelityCard = fidelityCard;
+    public void addFidelityCard(FidelityCard card) {
+        if (card != null && !fidelityCards.contains(card)) {
+            fidelityCards.add(card);
+        } else {
+            throw new IllegalArgumentException("Fidelity card is null or already exists.");
+        }
     }
-    public Order getCurrentOrder() {
-        return currentOrder;
+    public FidelityCard getFidelityCard(Restaurant restaurant) {
+        for (FidelityCard card : fidelityCards) {
+            if (card.getRestaurant().equals(restaurant)) {
+                return card;
+            }
+        }
+        throw new IllegalArgumentException("No fidelity card found for the specified restaurant.");
     }
-    public void setCurrentOrder(Order currentOrder) {
-        this.currentOrder = currentOrder;
+    public List<Order> getFoodCart() {
+        return foodCart;
+    }
+    public Order getOrder(String orderName) {
+        for (Order order : foodCart) {
+            if (order.getOrderName().equals(orderName)) {
+                return order;
+            }
+        }
+        throw new IllegalArgumentException("Order not found in the cart.");
+    }
+    public void setFoodCart(List<Order> foodCart) {
+        this.foodCart = foodCart;
     }
 
     // ===== Methods =====
 
-    public void placeOrder(Item item) {
-        Date orderDate = new Date(11, 18, 2022, "12:30");
+    public void createOrder(Restaurant restaurant, String orderName) {
         List<Item> items = new ArrayList<>();
-        items.add(item);
-        this.currentOrder = new Order(this, orderDate, items);
+        this.foodCart.add(new Order(orderName, this, restaurant));
     }
-    public void addItemToOrder(Item item) {
-        if (this.currentOrder != null) {
-            this.currentOrder.addItem(item);
+    public void addToFoodCart(Order order) {
+        if (order != null && !foodCart.contains(order)) {
+            foodCart.add(order);
         } else {
-            throw new IllegalStateException("No current order to add items to.");
+            throw new IllegalArgumentException("Order is null or already in the cart.");
+        }
+    }
+    public void removeFromFoodCart(Order order) {
+        if (order != null && foodCart.contains(order)) {
+            foodCart.remove(order);
+        } else {
+            throw new IllegalArgumentException("Order is null or not in the cart.");
         }
     }
     public void resetPoints() {
@@ -140,13 +172,19 @@ public class Customer extends User implements CustomObserver {
         Object[] args = (Object[]) arg;
         boolean isSubscribed = (boolean) args[0];
         List<Offer> offers = (List<Offer>) args[1];
-        if (isSubscribed) {
-            this.notifs.addAll(offers);
-        } else {
-            for (Offer offer : offers) {
-                this.notifs.remove(offer);
+        if (offers != null && !offers.isEmpty()) {
+            if (isSubscribed) {
+                for (Offer offer : offers) {
+                    if (!this.notifs.contains(offer)) {
+                        this.notifs.add(offer);
+                    }
+                }
+            } else {
+                for (Offer offer : offers) {
+                    this.notifs.remove(offer);
+                }
             }
-        }
+        } 
     }
 
     @Override

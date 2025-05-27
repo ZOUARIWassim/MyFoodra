@@ -49,6 +49,10 @@ public class HalfMeal extends Meal {
         return List.of(main, extra);
     }
     @Override
+    public void addDish(Dish dish) {
+        throw new UnsupportedOperationException("Cannot add dishes to a HalfMeal");
+    }
+    @Override
     public String getTitle() {
         return "Half Meal: " + main.getName() + " and " + extra.getName();
     }

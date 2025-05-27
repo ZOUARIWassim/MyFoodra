@@ -48,6 +48,7 @@ public abstract class Meal implements CustomObserver, Item {
     public abstract double getPrice();
     public abstract List<Dish> getDishes();
     public abstract String getTitle();
+    public abstract void addDish(Dish dish);
 
     // ===== Methods =====
 
@@ -55,7 +56,7 @@ public abstract class Meal implements CustomObserver, Item {
         return foodTypes.contains(FoodType.GLUTEN_FREE);
     }
     public boolean isStandard() {
-        return foodTypes.contains(FoodType.STANDART);
+        return foodTypes.contains(FoodType.STANDARD);
     }
     public boolean isVegetarian() {
         return foodTypes.contains(FoodType.VEGETARIAN);

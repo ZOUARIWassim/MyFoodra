@@ -1,24 +1,29 @@
 package fr.cs.groupJ.myFoodora.model.order;
 
 import fr.cs.groupJ.myFoodora.model.fidelityCard.FidelityCard;
+import fr.cs.groupJ.myFoodora.model.restaurant.Restaurant;
 import fr.cs.groupJ.myFoodora.model.user.Customer;
 import fr.cs.groupJ.myFoodora.model.item.Item;
 import fr.cs.groupJ.myFoodora.util.Date;
 
+import java.util.Calendar;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
 
-    private Date orderDate;
+    private String orderName;
+    private Date orderDate = null;
     private Customer customer;
+    private Restaurant restaurant;
+    private boolean isFinalized = false;
 
     private List<Item> items = new ArrayList<>();
 
-    public Order( Customer customer, Date orderDate, List<Item> items) {
-        this.orderDate = orderDate;
+    public Order( String name, Customer customer,Restaurant restaurant) {
+        this.orderName = name;
         this.customer = customer;
-        this.items = items;
+        this.restaurant = restaurant;
     }
     // ===== Getters and Setters =====
 
@@ -40,9 +45,33 @@ public class Order {
     public void setItems(List<Item> items) {
         this.items = items;
     }
-
+    public String getOrderName() {
+        return orderName;
+    }
+    public void setOrderName(String orderName) {
+        this.orderName = orderName;
+    }
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+    public boolean isFinalized() {
+        return isFinalized;
+    }
     // ===== Methods =====
 
+    public void finalizeOrder(Date inputDate) {
+        if (items.isEmpty()) {
+            throw new IllegalStateException("Cannot finalize order with no items.");
+        }
+        if (isFinalized) {
+            throw new IllegalStateException("Order is already finalized.");
+        }
+        this.orderDate = inputDate;
+        this.isFinalized = true;
+    }
     public void addItem(Item item) {
         if (items != null) {
             items.add(item);
@@ -66,7 +95,7 @@ public class Order {
         return total;
     }
     public double calculateFinalPrice() {
-        FidelityCard fidelityCard = customer.getFidelityCard();
+        FidelityCard fidelityCard = customer.getFidelityCard(restaurant);
         double basePrice = calculateBasePrice();
         if (fidelityCard != null) {
             return fidelityCard.computeFinalPrice(basePrice);

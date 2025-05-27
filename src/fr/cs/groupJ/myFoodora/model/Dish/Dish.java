@@ -54,7 +54,7 @@ public class Dish implements Item {
         return types.contains(FoodType.GLUTEN_FREE);
     }
     public boolean isStandard() {
-        return types.contains(FoodType.STANDART);
+        return types.contains(FoodType.STANDARD);
     }
     public boolean isVegetarian() {
         return types.contains(FoodType.VEGETARIAN);

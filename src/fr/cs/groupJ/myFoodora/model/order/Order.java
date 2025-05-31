@@ -17,7 +17,6 @@ public class Order {
     private Restaurant restaurant;
 
     private Date orderDate = null;
-    private boolean isFinalized = false;
     private List<Item> items = new ArrayList<>();
 
     public Order( String name, Customer customer,Restaurant restaurant) {
@@ -57,20 +56,13 @@ public class Order {
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
-    public boolean isFinalized() {
-        return isFinalized;
-    }
 
     // ===== Methods =====
     public void finalizeOrder(Date inputDate) {
         if (items.isEmpty()) {
             throw new IllegalStateException("Cannot finalize order with no items.");
         }
-        if (isFinalized) {
-            throw new IllegalStateException("Order is already finalized.");
-        }
         this.orderDate = inputDate;
-        this.isFinalized = true;
     }
     public void addItem(Item item) {
         if (items != null) {

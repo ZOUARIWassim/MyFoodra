@@ -272,9 +272,6 @@ public class SysModel {
 		if (order == null) {
 			throw new IllegalArgumentException("Order not found.");
 		}
-		if (order.isFinalized()) {
-			throw new IllegalStateException("Order is already finalized.");
-		}
 		int day = Integer.parseInt(orderDate.substring(0, 2));
 		int month = Integer.parseInt(orderDate.substring(3, 5));
 		int year = Integer.parseInt(orderDate.substring(6, 10));

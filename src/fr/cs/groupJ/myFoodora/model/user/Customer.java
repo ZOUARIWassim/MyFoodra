@@ -26,6 +26,7 @@ public class Customer extends User implements CustomObserver {
     private int points = 0;
     private List<Order> foodCart = new ArrayList<>();
     private List<Offer> notifs = new ArrayList<>();
+    private List<List<Order>> orderHistory = new ArrayList<>();
 
     public Customer(String username, String password, String firstName, String lastName, Coordinate address) {
         super(username, password, address);
@@ -62,6 +63,9 @@ public class Customer extends User implements CustomObserver {
         } else {
             throw new IllegalArgumentException("Offer is null or already exists in notifications.");
         }
+    }
+    public List<List<Order>> getOrderHistory() {
+        return orderHistory;
     }
     public int getPoints() {
         return points;
@@ -113,6 +117,13 @@ public class Customer extends User implements CustomObserver {
         } else {
             throw new IllegalArgumentException("Order is null or already in the cart.");
         }
+    }
+    public void finalizeOrder() {
+        if (foodCart.isEmpty()) {
+            throw new IllegalStateException("Cannot finalize an empty food cart.");
+        }
+        this.orderHistory.add(foodCart);
+        this.foodCart.clear();
     }
     public void removeFromFoodCart(Order order) {
         if (order != null && foodCart.contains(order)) {
